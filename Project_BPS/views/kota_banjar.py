@@ -405,8 +405,11 @@ update_rekap_total_landmark(df_merged, "Kota Banjar", conn_st.engine)
 
 st.subheader("Filter Data")
 
+match = df.shape[0]
+unmatched = unmatched_landmark.shape[0]
+
 st.markdown(
-    f"<span style='font-size: 14px; color: gray;'>{total_matched:,} baris cocok, {total_unmatched:,} baris belum ada di database.</span>",
+    f"<span style='font-size: 14px; color: gray;'>{match:,} baris cocok, {unmatched:,} baris belum ada di database.</span>",
     unsafe_allow_html=True
 )
 col11, col22, col33, col44 = st.columns(4)
