@@ -355,8 +355,6 @@ kolom_tak_match = [
     'Kode Wilayah SLS',
     'Kode Kecamatan',
     'Nama Kecamatan',
-    'Kode Kabupaten/Kota',
-    'Nama Kabupaten/Kota',
     'Kode Desa',
     'Nama Desa',
     'Kode SLS',
@@ -366,7 +364,7 @@ kolom_tak_match = [
     'Kode Pengawas',
     'Nama Pengawas'
 ]
-df_merged[kolom_tak_match] = df_merged[kolom_tak_match].fillna('[Kosong]')
+df_merged[kolom_tak_match] = df_merged[kolom_tak_match].fillna('-')
 #=========================
 
 
@@ -406,6 +404,11 @@ def update_rekap_total_landmark(df_merged, nama_kotakab, conn_engine):
 update_rekap_total_landmark(df_merged, "Kota Banjar", conn_st.engine)
 
 st.subheader("Filter Data")
+
+st.markdown(
+    f"<span style='font-size: 14px; color: gray;'>{total_matched:,} baris cocok, {total_unmatched:,} baris belum ada di database.</span>",
+    unsafe_allow_html=True
+)
 col11, col22, col33, col44 = st.columns(4)
 
 filtered_df = df_merged
@@ -451,9 +454,6 @@ tampilan_kolom = [
 filtered_df = filtered_df[tampilan_kolom]
 
 st.dataframe(filtered_df)
-
-st.dataframe(unmatched_landmark)
-
 
 df_merged['status'] = df_merged['Total Landmark'] >= 4
 
