@@ -409,7 +409,7 @@ match = df.shape[0]
 unmatched = unmatched_landmark.shape[0]
 
 st.markdown(
-    f"<span style='font-size: 14px; color: gray;'>{match:,} baris cocok, {unmatched:,} baris belum ada di database.</span>",
+    f"<span style='font-size: 20px; color: gray;'>{match:,} baris cocok. {unmatched:,} baris belum ada di database.</span>",
     unsafe_allow_html=True
 )
 col11, col22, col33, col44 = st.columns(4)
