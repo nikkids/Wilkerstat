@@ -358,7 +358,7 @@ kolom_tak_match = [
     'Kode Pengawas',
     'Nama Pengawas'
 ]
-df_merged[columns_to_fill] = df_merged[kolom_tak_match].fillna('[Kosong]')
+df_merged[kolom_tak_match] = df_merged[kolom_tak_match].fillna('[Kosong]')
 
 df_merged['Kecamatan'] = ' [' + df_merged['Kode Kecamatan'].astype(str) + ']' + ' '+ df_merged['Nama Kecamatan'].astype(str)
 df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']'+ ' '+ df_merged['Nama Kabupaten/Kota'].astype(str)
