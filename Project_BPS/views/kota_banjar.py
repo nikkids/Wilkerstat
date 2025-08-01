@@ -336,6 +336,10 @@ df_merged = pd.merge(df, landmark, on=['Kode Wilayah Desa', 'Nama SLS'], how='le
 df_merged['total_landmark'] = df_merged['total_landmark'].fillna(0)
 df_merged = df_merged.rename(columns={'total_landmark':'Total Landmark'})
 
+df_keys = df[['Kode Wilayah Desa', 'Nama SLS']].drop_duplicates()
+unmatched_landmark = landmark.merge(df_keys, on=['Kode Wilayah Desa', 'Nama SLS'], how='left', indicator=True)
+unmatched_landmark = unmatched_landmark[unmatched_landmark['_merge'] == 'left_only'].drop(columns=['_merge'])
+
 df_merged['Kecamatan'] = ' [' + df_merged['Kode Kecamatan'].astype(str) + ']' + ' '+ df_merged['Nama Kecamatan'].astype(str)
 df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']'+ ' '+ df_merged['Nama Kabupaten/Kota'].astype(str)
 df_merged['Desa'] = ' [' + df_merged['Kode Desa'].astype(str) + ']' + ' '+ df_merged['Nama Desa'].astype(str) 
@@ -417,6 +421,8 @@ tampilan_kolom = [
 filtered_df = filtered_df[tampilan_kolom]
 
 st.dataframe(filtered_df)
+
+st.dataframe(unmatched_landmark)
 
 
 df_merged['status'] = df_merged['Total Landmark'] >= 4
