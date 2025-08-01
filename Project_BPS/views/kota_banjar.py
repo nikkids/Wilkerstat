@@ -336,6 +336,8 @@ df_merged = pd.merge(df, landmark, on=['Kode Wilayah Desa', 'Nama SLS'], how='le
 df_merged['total_landmark'] = df_merged['total_landmark'].fillna(0)
 df_merged = df_merged.rename(columns={'total_landmark':'Total Landmark'})
 
+
+#==========Ga Cocok========
 df_keys = df[['Kode Wilayah Desa', 'Nama SLS']].drop_duplicates()
 unmatched_landmark = landmark.merge(df_keys, on=['Kode Wilayah Desa', 'Nama SLS'], how='left', indicator=True)
 unmatched_landmark = unmatched_landmark[unmatched_landmark['_merge'] == 'left_only'].drop(columns=['_merge'])
@@ -351,14 +353,22 @@ df_merged = pd.concat([df_merged, unmatched_landmark], ignore_index=True)
 
 kolom_tak_match = [
     'Kode Wilayah SLS',
-    'Kecamatan',
-    'Desa',
+    'Kode Kecamatan',
+    'Nama Kecamatan'
+    'Kode Kabupaten/Kota',
+    'Nama Kabupaten/Kota',
+    'Kode Desa',
+    'Nama Desa',
+    'Kode SLS',
+    'Nama SLS',
     'Kode Petugas',
     'Nama Petugas',
     'Kode Pengawas',
     'Nama Pengawas'
 ]
 df_merged[kolom_tak_match] = df_merged[kolom_tak_match].fillna('[Kosong]')
+#=========================
+
 
 df_merged['Kecamatan'] = ' [' + df_merged['Kode Kecamatan'].astype(str) + ']' + ' '+ df_merged['Nama Kecamatan'].astype(str)
 df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']'+ ' '+ df_merged['Nama Kabupaten/Kota'].astype(str)
