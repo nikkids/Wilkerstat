@@ -348,6 +348,7 @@ unmatched_landmark = unmatched_landmark[df_merged.columns]
 unmatched_landmark['Total Landmark'] = unmatched_landmark['Total Landmark'].fillna(0)
 
 df_merged = pd.concat([df_merged, unmatched_landmark], ignore_index=True)
+df_merged['Kode Wilayah SLS'] = df_merged['Kode Wilayah SLS'].fillna('[UNMATCHED]')
 
 df_merged['Kecamatan'] = ' [' + df_merged['Kode Kecamatan'].astype(str) + ']' + ' '+ df_merged['Nama Kecamatan'].astype(str)
 df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']'+ ' '+ df_merged['Nama Kabupaten/Kota'].astype(str)
