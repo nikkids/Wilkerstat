@@ -354,7 +354,7 @@ df_merged = pd.concat([df_merged, unmatched_landmark], ignore_index=True)
 kolom_tak_match = [
     'Kode Wilayah SLS',
     'Kode Kecamatan',
-    'Nama Kecamatan'
+    'Nama Kecamatan',
     'Kode Kabupaten/Kota',
     'Nama Kabupaten/Kota',
     'Kode Desa',
