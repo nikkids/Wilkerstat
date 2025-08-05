@@ -369,16 +369,20 @@ df_merged[kolom_tak_match] = df_merged[kolom_tak_match].fillna('-')
 
 
 df_merged['Kecamatan'] = ' [' + df_merged['Kode Kecamatan'].astype(str) + ']' + ' '+ df_merged['Nama Kecamatan'].astype(str)
-df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']'+ ' '+ df_merged['Nama Kabupaten/Kota'].astype(str)
 df_merged['Desa'] = ' [' + df_merged['Kode Desa'].astype(str) + ']' + ' '+ df_merged['Nama Desa'].astype(str) 
 df_merged['SLS'] = '[' + df_merged['Kode SLS'].astype(str) + ']' + ' ' + df_merged['Nama SLS'].astype(str)
 
 
 #===============Untuk Unmatch kolom========
 nama_provinsi_default = df_merged['Nama Provinsi'].dropna().iloc[0]
-kabupaten_kota_default = df_merged['Kabupaten/Kota'].dropna().iloc[0]
 df_merged['Nama Provinsi'] = df_merged['Nama Provinsi'].fillna(nama_provinsi_default)
-df_merged['Kabupaten/Kota'] = df_merged['Kabupaten/Kota'].fillna(kabupaten_kota_default)
+
+nama_kabupaten_default = df_merged['Nama Kabupaten/Kota'].dropna().iloc[0]
+kode_kabupaten_default = df_merged['Kode Kabupaten/Kota'].dropna().iloc[0]
+df_merged['Nama Kabupaten/Kota'] = df_merged['Nama Kabupaten/Kota'].fillna(nama_kabupaten_default)
+df_merged['Kode Kabupaten/Kota'] = df_merged['Kode Kabupaten/Kota'].fillna(kode_kabupaten_default)
+
+df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']' + ' ' + df_merged['Nama Kabupaten/Kota'].astype(str)
 #==========================================
 
 def update_rekap_total_landmark(df_merged, nama_kotakab, conn_engine):
