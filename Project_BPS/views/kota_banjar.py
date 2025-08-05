@@ -350,7 +350,13 @@ unmatched_landmark = unmatched_landmark[df_merged.columns]
 unmatched_landmark['Total Landmark'] = unmatched_landmark['Total Landmark'].fillna(0)
 
 df_merged = pd.concat([df_merged, unmatched_landmark], ignore_index=True)
+#===============Untuk Unmatch kolom========
+nama_provinsi_default = df_merged['Nama Provinsi'].replace('-', pd.NA).dropna().iloc[0]
+kabupaten_kota_default = df_merged['Kabupaten/Kota'].replace('-', pd.NA).dropna().iloc[0]
 
+df_merged['Nama Provinsi'] = df_merged['Nama Provinsi'].replace('-', nama_provinsi_default)
+df_merged['Kabupaten/Kota'] = df_merged['Kabupaten/Kota'].replace('-', kabupaten_kota_default)
+#==========================================
 kolom_tak_match = [
     'Kode Wilayah SLS',
     'Kode Kecamatan',
