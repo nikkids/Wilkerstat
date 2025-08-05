@@ -238,7 +238,7 @@ st.subheader("Total Data yang Telah Diunggah")
 up1,up2,up3,up4= st.columns(4)
 
 df_for_filter = df_uploaded.copy() 
-df_for_filter['Nama Project'] = df_for_filter['Nama Project'].apply(lambda x: str(x).zfill(6)[:4])
+df_for_filter['Nama Project'] = df_for_filter['Nama Project'].apply(lambda x: str(x).zfill(4))
 with up1:
     wid = st.multiselect("WID:", df_for_filter['WID'].unique())
 df1 = df_for_filter if not wid else df_for_filter[df_for_filter['WID'].isin(wid)]
@@ -484,6 +484,7 @@ with stat2:
     fig.update_layout(width=800, height=600, title_font_size=25, 
         title={'text': '<b>Persentase Status SLS Tervalidasi ≥ 4 VS < 4 </b><br><span style="font-weight:normal; font-size:20px"></span>'},
         legend=dict(font=dict(size=20)))
+    fig.update_traces(texttemplate='%{percent:.3%}')
     st.plotly_chart(fig, use_container_width=False)
 
 with stat3:
