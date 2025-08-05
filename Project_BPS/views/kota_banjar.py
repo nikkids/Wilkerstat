@@ -110,7 +110,7 @@ with col2:
                 st.write(f"📗 Memproses file: `{filename}`")
                 try:
                     if filename.endswith((".csv", ".txt")):
-                        df = pd.read_csv(fl)
+                        df = pd.read_csv(fl, sep=';')
                     else:
                         df = pd.read_excel(fl)
 
