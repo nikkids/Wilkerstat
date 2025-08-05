@@ -375,10 +375,10 @@ df_merged['SLS'] = '[' + df_merged['Kode SLS'].astype(str) + ']' + ' ' + df_merg
 
 
 #===============Untuk Unmatch kolom========
-nama_provinsi_default = df_merged['Nama Provinsi'].replace('-', pd.NA).dropna().iloc[0]
-df_merged['Nama Provinsi'] = df_merged['Nama Provinsi'].replace('-', nama_provinsi_default)
-kabupaten_kota_default = df_merged['Kabupaten/Kota'].replace('-', pd.NA).dropna().iloc[0]
-df_merged['Kabupaten/Kota'] = df_merged['Kabupaten/Kota'].replace('-', kabupaten_kota_default)
+nama_provinsi_default = df_merged['Nama Provinsi'].dropna().iloc[0]
+kabupaten_kota_default = df_merged['Kabupaten/Kota'].dropna().iloc[0]
+df_merged['Nama Provinsi'] = df_merged['Nama Provinsi'].fillna(nama_provinsi_default)
+df_merged['Kabupaten/Kota'] = df_merged['Kabupaten/Kota'].fillna(kabupaten_kota_default)
 #==========================================
 
 def update_rekap_total_landmark(df_merged, nama_kotakab, conn_engine):
