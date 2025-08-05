@@ -484,7 +484,7 @@ with stat2:
     fig.update_layout(width=800, height=600, title_font_size=25, 
         title={'text': '<b>Persentase Status SLS Tervalidasi ≥ 4 VS < 4 </b><br><span style="font-weight:normal; font-size:20px"></span>'},
         legend=dict(font=dict(size=20)))
-    fig.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{percent:.3f}')
+    fig.update_traces(texttemplate='%{percent:.3%}')
     st.plotly_chart(fig, use_container_width=False)
 
 with stat3:
