@@ -110,7 +110,7 @@ with col2:
                 st.write(f"📗 Memproses file: `{filename}`")
                 try:
                     if filename.endswith((".csv", ".txt")):
-                        df = pd.read_csv(fl)
+                        df = pd.read_csv(fl, sep=';')
                     else:
                         df = pd.read_excel(fl)
 
@@ -336,10 +336,53 @@ df_merged = pd.merge(df, landmark, on=['Kode Wilayah Desa', 'Nama SLS'], how='le
 df_merged['total_landmark'] = df_merged['total_landmark'].fillna(0)
 df_merged = df_merged.rename(columns={'total_landmark':'Total Landmark'})
 
+#==========Ga Cocok========
+df_keys = df[['Kode Wilayah Desa', 'Nama SLS']].drop_duplicates()
+unmatched_landmark = landmark.merge(df_keys, on=['Kode Wilayah Desa', 'Nama SLS'], how='left', indicator=True)
+unmatched_landmark = unmatched_landmark[unmatched_landmark['_merge'] == 'left_only'].drop(columns=['_merge'])
+
+for col in df_merged.columns:
+    if col not in unmatched_landmark.columns:
+        unmatched_landmark[col] = None
+
+unmatched_landmark = unmatched_landmark[df_merged.columns]
+unmatched_landmark['Total Landmark'] = unmatched_landmark['Total Landmark'].fillna(0)
+
+df_merged = pd.concat([df_merged, unmatched_landmark], ignore_index=True)
+
+kolom_tak_match = [
+    'Kode Wilayah SLS',
+    'Kode Kecamatan',
+    'Nama Kecamatan',
+    'Kode Desa',
+    'Nama Desa',
+    'Kode SLS',
+    'Nama SLS',
+    'Kode Petugas',
+    'Nama Petugas',
+    'Kode Pengawas',
+    'Nama Pengawas'
+]
+df_merged[kolom_tak_match] = df_merged[kolom_tak_match].fillna('-')
+#=========================
+
+
 df_merged['Kecamatan'] = ' [' + df_merged['Kode Kecamatan'].astype(str) + ']' + ' '+ df_merged['Nama Kecamatan'].astype(str)
-df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']'+ ' '+ df_merged['Nama Kabupaten/Kota'].astype(str)
 df_merged['Desa'] = ' [' + df_merged['Kode Desa'].astype(str) + ']' + ' '+ df_merged['Nama Desa'].astype(str) 
 df_merged['SLS'] = '[' + df_merged['Kode SLS'].astype(str) + ']' + ' ' + df_merged['Nama SLS'].astype(str)
+
+
+#===============Untuk Unmatch kolom========
+nama_provinsi_default = df_merged['Nama Provinsi'].dropna().iloc[0]
+df_merged['Nama Provinsi'] = df_merged['Nama Provinsi'].fillna(nama_provinsi_default)
+
+nama_kabupaten_default = df_merged['Nama Kabupaten/Kota'].dropna().iloc[0]
+kode_kabupaten_default = df_merged['Kode Kabupaten/Kota'].dropna().iloc[0]
+df_merged['Nama Kabupaten/Kota'] = df_merged['Nama Kabupaten/Kota'].fillna(nama_kabupaten_default)
+df_merged['Kode Kabupaten/Kota'] = df_merged['Kode Kabupaten/Kota'].fillna(kode_kabupaten_default)
+
+df_merged['Kabupaten/Kota'] = ' [' + df_merged['Kode Kabupaten/Kota'].astype(str) + ']' + ' ' + df_merged['Nama Kabupaten/Kota'].astype(str)
+#==========================================
 
 
 def update_rekap_total_landmark(df_merged, nama_kotakab, conn_engine):
