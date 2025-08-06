@@ -46,7 +46,7 @@ if 'uploaded_df' not in st.session_state:
 if 'uploaded_filename' not in st.session_state:
     st.session_state['uploaded_filename'] = None
 
-col1, col2 = st.columns((2, 1)) 
+col1, col2 = st.columns((2, 2)) 
 
 #=========================================================================
 #Upload Data
