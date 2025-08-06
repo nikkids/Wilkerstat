@@ -71,7 +71,7 @@ with tab_dashboard:
 id, wid, nama, nm_project, deskripsi_project, iddesa, latitude, longitude, 
 accuracy, status, kode_kategori, kategori_landmark, kode_landmark_tipe, 
 tipe_landmark, user_created_at, user_upload_at, user_creator_nama, 
-photo_url, nama_krt, jumlah_art_tani, subsector
+photo_url
     """, language="text")
 
     st.markdown("---") 
