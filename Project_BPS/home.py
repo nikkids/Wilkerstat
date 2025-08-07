@@ -102,7 +102,7 @@ with kiri:
             tooltip=folium.features.GeoJsonTooltip(fields=popup_fields)
         ).add_to(m)
 
-        folium_static(m, width=750, height=650)
+        folium_static(m, width=900, height=650)
     
     except Exception as e:
         st.error(f"Gagal memuat file peta GeoJSON: {e}. Pastikan path file benar.")
