@@ -42,7 +42,6 @@ semua_lokasi = {
     "Kabupaten Sukabumi": kab_sukabumi,
     "Kabupaten Cianjur": kab_cianjur,
     "Kabupaten Bandung": kab_bandung,
-    "Kabupaten Garut": kab_garut,
     "Kabupaten Tasikmalaya": kab_tasikmalaya,
     "Kabupaten Ciamis": kab_ciamis,
     "Kabupaten Kuningan": kab_kuningan,
